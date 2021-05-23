@@ -1,0 +1,9 @@
+2021/05/22 20:59:25 This is a log message
+INFO: 2021/05/22 21:10:55 main.go:36: this is an information messsage
+WARNING: 2021/05/22 21:10:55 main.go:39: this is a warning
+ERROR: 2021/05/22 21:10:55 main.go:42: this is an error
+FATAL: 2021/05/22 21:10:55 main.go:45: we crashed
+INFO: 2021/05/22 21:15:03 main.go:34: this is an information messsage
+WARNING: 2021/05/22 21:15:03 main.go:37: this is a warning
+ERROR: 2021/05/22 21:15:03 main.go:40: this is an error
+FATAL: 2021/05/22 21:15:03 main.go:43: we crashed
