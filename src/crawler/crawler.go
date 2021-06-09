@@ -55,15 +55,11 @@ func ConcurrentMutex(url string, fetcher Fetcher, f *fetchState) {
 	var done sync.WaitGroup
 	for _, u := range urls {
 		done.Add(1)
-		u2 := u
-		go func() {
+		// We need a local copy of u for closure since u is keep changing
+		go func(u string) {
 			defer done.Done()
-			ConcurrentMutex(u2, fetcher, f)
-		}()
-		//go func(u string) {
-		//	defer done.Done()
-		//	ConcurrentMutex(u, fetcher, f)
-		//}(u)
+			ConcurrentMutex(u, fetcher, f)
+		}(u)
 	}
 	done.Wait()
 	return
