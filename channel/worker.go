@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	numberGoRoutine = 8
+	numberGoRoutine = 2
 	taskLoad        = 10
 )
 
@@ -23,6 +23,7 @@ func startWorker() {
 	}
 
 	for post := 1; post <= taskLoad; post++ {
+		fmt.Printf("task %d posted\n", post)
 		tasks <- fmt.Sprintf("Task : %d", post)
 	}
 
