@@ -14,7 +14,7 @@ type WorkerPool struct {
 	wg   sync.WaitGroup
 }
 
-// standard producer-consumer with number of goroutine produce messages and seperate number of threads consume messages
+// standard producer-consumer with number of goroutine produce messages and seperate number of threads consume messages and we don't drop any messages
 func New(maxGoroutines int) *WorkerPool {
 	p := WorkerPool{
 		// use unbounded channel to balance the work between different goroutine
