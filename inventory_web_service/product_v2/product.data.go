@@ -3,6 +3,7 @@ package product_v2
 import (
 	"context"
 	"database/sql"
+	"log"
 	"time"
 
 	"github.com/minghuajiang/learn_go/inventory_web_service/database"
@@ -39,6 +40,42 @@ func getProduct(productID int) (*Product, error) {
 	}
 
 	return product, nil
+}
+
+func GetTopTenProducts() ([]Product, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	results, err := database.DBConn.QueryContext(ctx, `SELECT 
+	productId, 
+	manufacturer, 
+	sku, 
+	upc, 
+	pricePerUnit, 
+	quantityOnHand, 
+	productName 
+	FROM products ORDER BY quantityOnHand DESC LIMIT 10
+	`)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	defer results.Close()
+	products := make([]Product, 0)
+	for results.Next() {
+		var product Product
+		results.Scan(&product.ProductID,
+			&product.Manufacturer,
+			&product.Sku,
+			&product.Upc,
+			&product.PricePerUnit,
+			&product.QuantityOnHand,
+			&product.ProductName)
+
+		products = append(products, product)
+	}
+
+	return products, nil
 }
 
 func removeProduct(productId int) error {
